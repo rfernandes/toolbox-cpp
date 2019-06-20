@@ -53,7 +53,9 @@ std::istream& parse_section(std::istream& is, FnT fn, std::string* name = nullpt
             return is;
         }
 
-        auto [key, val] = split_pair(line, '=');
+        auto helperKde = split_pair(line, '=');
+       auto key = helperKde.first;
+       auto val = helperKde.second;
         rtrim(key);
         ltrim(val);
 

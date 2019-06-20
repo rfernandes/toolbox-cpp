@@ -57,7 +57,9 @@ pair<string, string> split_uri(const string& uri)
 AddrInfoPtr parse_endpoint(const string& uri, int type)
 {
     int family{-1}, protocol{0};
-    const auto [scheme, addr] = split_uri(uri);
+    const auto helperKde = split_uri(uri);
+    auto scheme = helperKde.first;
+    auto addr = helperKde.second;
     if (scheme.empty()) {
         family = AF_UNSPEC;
     } else if (scheme == "ip4") {
@@ -90,7 +92,9 @@ AddrInfoPtr parse_endpoint(const string& uri, int type)
     if (family < 0) {
         throw invalid_argument{"invalid uri: "s + uri};
     }
-    auto [node, service] = split_ip_addr(addr, ':');
+    auto helperKde2 = split_ip_addr(addr, ':');
+   auto node = helperKde2.first;
+   auto service = helperKde2.second;
     return os::getaddrinfo(!node.empty() ? node.c_str() : nullptr,
                            !service.empty() ? service.c_str() : nullptr, family, type, protocol);
 }

@@ -72,7 +72,9 @@ template <>
 struct TypeTraits<Version> {
     static auto from_string(std::string_view sv) noexcept
     {
-        const auto [major, minor] = split_pair(sv, '.');
+        const auto helperKde = split_pair(sv, '.');
+        auto major = helperKde.first;
+        auto minor = helperKde.second;
         return Version{TypeTraits<int>::from_string(major), TypeTraits<int>::from_string(minor)};
     }
     static auto from_string(const std::string& s) noexcept
