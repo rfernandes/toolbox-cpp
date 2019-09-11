@@ -134,9 +134,9 @@ install_libraries("${Boost_DATE_TIME_LIBRARY}")
 
 add_definitions(-DBOOST_NO_AUTO_PTR=1 -DBOOST_NO_RTTI=1 -DBOOST_NO_TYPEID=1)
 add_definitions(-DBOOST_ASIO_DISABLE_THREADS=1 -DBOOST_ASIO_HEADER_ONLY=1)
-if(NOT "${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}" MATCHES "\\.a$")
-  add_definitions(-DBOOST_TEST_DYN_LINK)
-endif()
+# if(NOT "${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}" MATCHES "\\.a$")
+#   add_definitions(-DBOOST_TEST_DYN_LINK)
+# endif()
 
 find_package(Doxygen) # Optional.
 

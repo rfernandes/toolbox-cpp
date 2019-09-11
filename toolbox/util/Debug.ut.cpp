@@ -14,29 +14,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "Stream.hpp"
+#include "Debug.hpp"
 
-#include <sstream>
+#include <boost/test/unit_test.hpp>
 
-namespace toolbox {
-inline namespace util {
 using namespace std;
+using namespace toolbox;
 
-void reset(ostream& os) noexcept
+BOOST_AUTO_TEST_SUITE(DebugSuite)
+
+BOOST_AUTO_TEST_CASE(DumpCase)
 {
-    os.clear();
-    os.fill(os.widen(' '));
-    os.flags(ios_base::skipws | ios_base::dec);
-    os.precision(6);
-    os.width(0);
+    std::string data{"12345"};
+    {
+        stringstream ss;
+        ss << hex_dump(data.c_str(), data.size() + 1);
+
+        BOOST_TEST(ss.str() == " 0x31 0x32 0x33 0x34 0x35 0x00");
+    }
+    {
+        stringstream ss;
+        ss << hex_dump(data.c_str(), data.size() + 1, hex_dump::Mode::NON_PRINTABLE);
+
+        BOOST_TEST(ss.str() == " 1 2 3 4 5 0x00");
+    }
 }
 
-std::stringstream wrap_buffer(char* buf, int size)
-{
-    std::stringstream stream;
-    stream.rdbuf()->pubsetbuf(buf, size);
-    return stream;
-}
-
-} // namespace util
-} // namespace toolbox
+BOOST_AUTO_TEST_SUITE_END()

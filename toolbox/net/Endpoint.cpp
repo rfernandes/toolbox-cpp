@@ -93,8 +93,8 @@ AddrInfoPtr parse_endpoint(const string& uri, int type)
         throw invalid_argument{"invalid uri: "s + uri};
     }
     auto helperKde2 = split_ip_addr(addr, ':');
-   auto node = helperKde2.first;
-   auto service = helperKde2.second;
+    auto node = helperKde2.first;
+    auto service = helperKde2.second;
     return os::getaddrinfo(!node.empty() ? node.c_str() : nullptr,
                            !service.empty() ? service.c_str() : nullptr, family, type, protocol);
 }
